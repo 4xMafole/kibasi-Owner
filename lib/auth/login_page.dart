@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kibasi/auth/register_page.dart';
+import 'package:kibasi/content/dashboard.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/bezier.dart';
 
@@ -43,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _submitButton() {
     return InkWell(
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Loginned")));
+        Get.to(DashboardPage());
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -251,6 +253,12 @@ class _LoginPageState extends State<LoginPage> {
         _entryField("Password", isPassword: true),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
   }
 
   @override

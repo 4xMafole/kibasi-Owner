@@ -5,23 +5,17 @@ import 'package:kibasi/content/dashboard/daily_stats.dart';
 import 'package:kibasi/content/dashboard/graph/stats_controller.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 
-enum GraphData { Sales, Buses, Drivers}
 
 class Graph {
   BuildContext context;
   Graph(this.context);
 
   var statController = Get.put(StatController());
-  GraphData? _data = GraphData.Sales;
-  String _dataValue = "Sales";
 
   Widget build() {
     return Stack(
       children: [
         _buildGraphStat(),
-        // _pageIndicatorText(),
-        // _previousWeekButton(),
-        // _nextWeekButton(),
       ],
     );
   }
@@ -33,13 +27,13 @@ class Graph {
       children: [
         _buildSectionTitle("Overview"),
         Obx(
-              () => _buildWeekIndicators(statController.dailyStatList1.call(), 1),
+              () => _buildWeekIndicators(statController.dailyStatList.call()),
         ),
       ],
     );
   }
 
-  Widget _pageIndicatorText() {
+  Widget pageIndicatorText() {
     return Obx(() => Align(
         alignment: Alignment.bottomCenter,
         child: Padding(
@@ -47,7 +41,7 @@ class Graph {
           child: DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              color: Colors.blue,
+              color: color.AppColor.blue,
             ),
             child: Padding(
               padding:
@@ -64,7 +58,7 @@ class Graph {
         )));
   }
 
-  Widget _previousWeekButton() {
+  Widget previousWeekButton() {
     return Align(
       alignment: Alignment.bottomLeft,
       child: Padding(
@@ -74,7 +68,7 @@ class Graph {
             statController.onPreviousWeek();
           },
           elevation: 2.0,
-          fillColor: Colors.blue,
+          fillColor: color.AppColor.blue,
           child: Icon(
             Icons.arrow_back_ios_rounded,
             color: Colors.white,
@@ -86,20 +80,18 @@ class Graph {
     );
   }
 
-  Widget _nextWeekButton() {
+  Widget nextWeekButton() {
     return Obx(
-          () => Visibility(
-        visible: statController.displayNextWeekBtn.value,
-        child: Align(
+          () => Align(
           alignment: Alignment.bottomRight,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: RawMaterialButton(
               onPressed: () {
-                statController.onNextWeek();
+                statController.displayNextWeekBtn.value ? statController.onNextWeek() : null;
               },
               elevation: 2.0,
-              fillColor: Colors.blue,
+              fillColor: statController.displayNextWeekBtn.value ? color.AppColor.blue : color.AppColor.disable,
               child: Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: Colors.white,
@@ -109,7 +101,6 @@ class Graph {
             ),
           ),
         ),
-      ),
     );
   }
 
@@ -135,7 +126,7 @@ class Graph {
   }
 
   Widget _toggleButton(String name, GraphData toggleData) {
-   return  Row(
+   return  Obx(() => Row(
       children: [
         Transform.scale(
           scale: 0.8,
@@ -146,9 +137,9 @@ class Graph {
             child: Radio(
               value: toggleData,
               activeColor: color.AppColor.blue,
-              groupValue: _data,
+              groupValue: statController.data.value,
               onChanged: (GraphData? value) {
-                _data = value;
+                statController.data.value = value!;
               },
             ),
           ),
@@ -156,10 +147,10 @@ class Graph {
         Text(name),
         SizedBox(width: 20,),
       ],
-    );
+    ));
   }
 
-  Widget _buildWeekIndicators(List<DailyStatUiModel> models, int type) {
+  Widget _buildWeekIndicators(List<DailyStatUiModel> models) {
     if (models.length == 7) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -168,13 +159,13 @@ class Graph {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              _buildDayIndicator(models[0], type),
-              _buildDayIndicator(models[1], type),
-              _buildDayIndicator(models[2], type),
-              _buildDayIndicator(models[3], type),
-              _buildDayIndicator(models[4], type),
-              _buildDayIndicator(models[5], type),
-              _buildDayIndicator(models[6], type),
+              _buildDayIndicator(models[0]),
+              _buildDayIndicator(models[1]),
+              _buildDayIndicator(models[2]),
+              _buildDayIndicator(models[3]),
+              _buildDayIndicator(models[4]),
+              _buildDayIndicator(models[5]),
+              _buildDayIndicator(models[6]),
             ],
           ),
         ),
@@ -184,11 +175,11 @@ class Graph {
     }
   }
 
-  Widget _buildDayIndicator(DailyStatUiModel model, int type) {
+  Widget _buildDayIndicator(DailyStatUiModel model) {
     const width = 14.0;
     return InkWell(
       onTap: () =>
-          statController.setSelectedDayPosition(model.dayPosition, type),
+          statController.setSelectedDayPosition(model.dayPosition),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -204,7 +195,7 @@ class Graph {
                 ),
                 child: Center(
                   child: Text(
-                      '${model.stat}',
+                      '${model.stat} k',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 12.0, color: Colors.white),
                     ),
@@ -218,8 +209,14 @@ class Graph {
           ),
           Expanded(
             child: NeumorphicIndicator(
+              style: IndicatorStyle(
+                accent: color.AppColor.paleBlue,
+                depth: -4,
+                lightSource: LightSource.bottom,
+                variant: color.AppColor.blue,
+              ),
               width: width,
-              percent: statController.getStatPercentage(model.stat, type),
+              percent: statController.getStatPercentage(model.stat),
             ),
           ),
           SizedBox(height: 8.0),
