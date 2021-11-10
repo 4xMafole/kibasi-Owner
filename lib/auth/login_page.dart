@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _submitButton() {
     return InkWell(
       onTap: () {
-        Get.to(DashboardPage());
+        Get.to(Dashboard());
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

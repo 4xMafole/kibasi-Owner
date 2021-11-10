@@ -7,14 +7,14 @@ import 'package:kibasi/content/models/min_card_model.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/custom_card.dart' as card;
 
-class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+class Dashboard extends StatefulWidget {
+  const Dashboard({Key? key}) : super(key: key);
 
   @override
-  _DashboardPageState createState() => _DashboardPageState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
