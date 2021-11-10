@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
 import 'package:kibasi/content/dashboard/graph.dart' as graph;
 import 'package:kibasi/content/models/min_card_model.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
@@ -18,14 +19,13 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         color: Colors.white,
         child: Stack(
           children: [
             _content(),
             _week(),
           ],
-
         ),
       ),
     );
@@ -61,13 +61,17 @@ class _DashboardPageState extends State<DashboardPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               //role
               _subTitle("Tagine"),
             ],
           ),
           Expanded(child: Container()),
-          _profileImage(url: "assets/images/profile/profile.jpg", status: color.AppColor.paleBlue),
+          _profileImage(
+              url: "assets/images/profile/profile.jpg",
+              status: color.AppColor.paleBlue),
         ],
       ),
     );
@@ -77,7 +81,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Dashboard",
           style: TextStyle(
             fontSize: 24,
@@ -95,7 +99,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ],
     );
- }
+  }
 
   Widget _subTitle(String title) {
     return Text(
@@ -103,7 +107,8 @@ class _DashboardPageState extends State<DashboardPage> {
       style: const TextStyle(
         fontSize: 18,
         color: Colors.black,
-        fontWeight: FontWeight.w500,),
+        fontWeight: FontWeight.w500,
+      ),
     );
   }
 
@@ -113,14 +118,16 @@ class _DashboardPageState extends State<DashboardPage> {
       decoration: card.AppCard().cardDecoration(),
       child: _graph(),
     );
- }
+  }
 
   Widget _graph() {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 30,),
-    child: graph.Graph(context).build(),
-  );
-}
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: 30,
+      ),
+      child: graph.Graph(context).build(),
+    );
+  }
 
   Widget _week() {
     return Stack(
@@ -134,27 +141,35 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget _ticketDetails() {
     var _data = [];
-    _data.add(MinCardModel(title: "Sold", imageUrl: "assets/icons/sold.png", number: 56));
-    _data.add(MinCardModel(title: "Verified", imageUrl: "assets/icons/verified.png", number: 32));
-    _data.add(MinCardModel(title: "Pending", imageUrl: "assets/icons/pending.png", number: 17));
+    _data.add(MinCardModel(
+        title: "Sold", imageUrl: "assets/icons/sold.png", number: 56));
+    _data.add(MinCardModel(
+        title: "Verified", imageUrl: "assets/icons/verified.png", number: 32));
+    _data.add(MinCardModel(
+        title: "Pending", imageUrl: "assets/icons/pending.png", number: 17));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _subTitle("Ticket Details"),
-        SizedBox(height: 30,),
+        const SizedBox(
+          height: 30,
+        ),
         Container(
           height: 130,
           child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: _data.length,
-              itemBuilder: (context, index) {
-                return card.AppCard().minCard(_data[index]);
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(width: 10,);
-              },),
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: _data.length,
+            itemBuilder: (context, index) {
+              return card.AppCard().minCard(_data[index]);
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                width: 10,
+              );
+            },
+          ),
         ),
       ],
     );
@@ -162,17 +177,29 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget _driverList() {
     var _data = [];
-    _data.add(_profileImage(url: "assets/images/profile/profile1.png", status: color.AppColor.disable));
-    _data.add(_profileImage(url: "assets/images/profile/profile2.jpg", status: color.AppColor.disable));
-    _data.add(_profileImage(url: "assets/images/profile/profile3.png", status: color.AppColor.disable));
-    _data.add(_profileImage(url: "assets/images/profile/profile4.jpg", status: color.AppColor.disable));
-    _data.add(_profileImage(url: "assets/images/profile/profile5.jpg", status: color.AppColor.disable));
+    _data.add(_profileImage(
+        url: "assets/images/profile/profile1.png",
+        status: color.AppColor.disable));
+    _data.add(_profileImage(
+        url: "assets/images/profile/profile2.jpg",
+        status: color.AppColor.disable));
+    _data.add(_profileImage(
+        url: "assets/images/profile/profile3.png",
+        status: color.AppColor.disable));
+    _data.add(_profileImage(
+        url: "assets/images/profile/profile4.jpg",
+        status: color.AppColor.disable));
+    _data.add(_profileImage(
+        url: "assets/images/profile/profile5.jpg",
+        status: color.AppColor.disable));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _subTitle("Driver List"),
-        SizedBox(height: 10,),
+        const SizedBox(
+          height: 10,
+        ),
         Container(
           height: 80,
           child: ListView.separated(
@@ -183,8 +210,11 @@ class _DashboardPageState extends State<DashboardPage> {
               return _data[index];
             },
             separatorBuilder: (BuildContext context, int index) {
-              return SizedBox(width: 10,);
-            },),
+              return const SizedBox(
+                width: 10,
+              );
+            },
+          ),
         )
       ],
     );
@@ -192,7 +222,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget _profileImage({required String url, required Color status}) {
     return Container(
-      padding: EdgeInsets.all(3),
+      padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
         color: status,
         shape: BoxShape.circle,
@@ -209,17 +239,23 @@ class _DashboardPageState extends State<DashboardPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 20,),
+        const SizedBox(
+          height: 20,
+        ),
         _title(),
-        SizedBox(height: 30,),
+        const SizedBox(
+          height: 30,
+        ),
         _graphedDetails(),
-        SizedBox(height: 30,),
+        const SizedBox(
+          height: 30,
+        ),
         _ticketDetails(),
-        SizedBox(height: 30,),
+        const SizedBox(
+          height: 30,
+        ),
         _driverList(),
       ],
     );
   }
-
-
 }

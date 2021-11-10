@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kibasi/auth/register_page.dart';
-import 'package:kibasi/content/dashboard.dart';
+import 'package:kibasi/content/dashboard/dashboard.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/bezier.dart';
-
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key, this.title}) : super(key: key);
@@ -17,7 +16,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   Widget _entryField(String title, {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -52,15 +50,16 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.symmetric(vertical: 15),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            color: color.AppColor.blue,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: color.AppColor.paleBlue.withOpacity(0.6),
-                  offset: Offset(2, 4),
-                  blurRadius: 20,
-                  spreadRadius: 5,)
-            ],
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          color: color.AppColor.blue,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: color.AppColor.paleBlue.withOpacity(0.6),
+              offset: Offset(2, 4),
+              blurRadius: 20,
+              spreadRadius: 5,
+            )
+          ],
         ),
         child: Text(
           'Login',
@@ -201,33 +200,36 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _createAccountLabel() {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 20),
-        padding: EdgeInsets.all(15),
-        alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Don\'t have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+      margin: EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.all(15),
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Don\'t have an account ?',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterPage()),
+                  (route) => false);
+            },
+            child: Text(
+              'Register',
+              style: TextStyle(
+                  color: color.AppColor.paleBlue,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600),
             ),
-            SizedBox(
-              width: 10,
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => RegisterPage()), (route) => false);
-              },
-              child: Text(
-                'Register',
-                style: TextStyle(
-                    color: color.AppColor.paleBlue,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -258,7 +260,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override

@@ -5,7 +5,6 @@ import 'package:kibasi/content/dashboard/daily_stats.dart';
 import 'package:kibasi/content/dashboard/graph/stats_controller.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 
-
 class Graph {
   BuildContext context;
   Graph(this.context);
@@ -27,7 +26,7 @@ class Graph {
       children: [
         _buildSectionTitle("Overview"),
         Obx(
-              () => _buildWeekIndicators(statController.dailyStatList.call()),
+          () => _buildWeekIndicators(statController.dailyStatList.call()),
         ),
       ],
     );
@@ -45,7 +44,7 @@ class Graph {
             ),
             child: Padding(
               padding:
-              const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
               child: Text(
                 statController.currentWeek.value,
                 style: TextStyle(
@@ -82,25 +81,29 @@ class Graph {
 
   Widget nextWeekButton() {
     return Obx(
-          () => Align(
-          alignment: Alignment.bottomRight,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: RawMaterialButton(
-              onPressed: () {
-                statController.displayNextWeekBtn.value ? statController.onNextWeek() : null;
-              },
-              elevation: 2.0,
-              fillColor: statController.displayNextWeekBtn.value ? color.AppColor.blue : color.AppColor.disable,
-              child: Icon(
-                Icons.arrow_forward_ios_rounded,
-                color: Colors.white,
-              ),
-              padding: EdgeInsets.all(8.0),
-              shape: CircleBorder(),
+      () => Align(
+        alignment: Alignment.bottomRight,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: RawMaterialButton(
+            onPressed: () {
+              statController.displayNextWeekBtn.value
+                  ? statController.onNextWeek()
+                  : null;
+            },
+            elevation: 2.0,
+            fillColor: statController.displayNextWeekBtn.value
+                ? color.AppColor.blue
+                : color.AppColor.disable,
+            child: Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
             ),
+            padding: EdgeInsets.all(8.0),
+            shape: CircleBorder(),
           ),
         ),
+      ),
     );
   }
 
@@ -114,7 +117,8 @@ class Graph {
             style: const TextStyle(
               fontSize: 18,
               color: Colors.black,
-              fontWeight: FontWeight.w500,),
+              fontWeight: FontWeight.w500,
+            ),
           ),
           Expanded(child: Container()),
           _toggleButton("Sales", GraphData.Sales),
@@ -126,28 +130,32 @@ class Graph {
   }
 
   Widget _toggleButton(String name, GraphData toggleData) {
-   return  Obx(() => Row(
-      children: [
-        Transform.scale(
-          scale: 0.8,
-          child: Container(
-            height: 10,
-            width: 10,
-            margin: EdgeInsets.only(right: 10),
-            child: Radio(
-              value: toggleData,
-              activeColor: color.AppColor.blue,
-              groupValue: statController.data.value,
-              onChanged: (GraphData? value) {
-                statController.data.value = value!;
-              },
-            ),
+    return Obx(() => Container(
+          child: Row(
+            children: [
+              Transform.scale(
+                scale: 0.8,
+                child: Container(
+                  height: 10,
+                  width: 10,
+                  margin: EdgeInsets.only(right: 10),
+                  child: Radio(
+                    value: toggleData,
+                    activeColor: color.AppColor.blue,
+                    groupValue: statController.data.value,
+                    onChanged: (GraphData? value) {
+                      statController.data.value = value!;
+                    },
+                  ),
+                ),
+              ),
+              Text(name),
+              SizedBox(
+                width: 20,
+              ),
+            ],
           ),
-        ),
-        Text(name),
-        SizedBox(width: 20,),
-      ],
-    ));
+        ));
   }
 
   Widget _buildWeekIndicators(List<DailyStatUiModel> models) {
@@ -178,8 +186,7 @@ class Graph {
   Widget _buildDayIndicator(DailyStatUiModel model) {
     const width = 14.0;
     return InkWell(
-      onTap: () =>
-          statController.setSelectedDayPosition(model.dayPosition),
+      onTap: () => statController.setSelectedDayPosition(model.dayPosition),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -195,15 +202,14 @@ class Graph {
                 ),
                 child: Center(
                   child: Text(
-                      '${model.stat} k',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 12.0, color: Colors.white),
-                    ),
+                    '${model.stat} k',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 12.0, color: Colors.white),
                   ),
                 ),
               ),
             ),
-
+          ),
           SizedBox(
             height: 4.0,
           ),
@@ -248,5 +254,4 @@ class Graph {
       return BoxDecoration();
     }
   }
-
 }
