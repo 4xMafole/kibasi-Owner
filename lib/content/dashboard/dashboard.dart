@@ -4,6 +4,8 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:kibasi/content/dashboard/graph.dart' as graph;
 import 'package:kibasi/content/models/min_card_model.dart';
+import 'package:kibasi/onboard/widgets/bordered_avatar.dart';
+import 'package:kibasi/onboard/widgets/subtitle.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/custom_card.dart' as card;
 
@@ -65,11 +67,12 @@ class _DashboardState extends State<Dashboard> {
                 height: 5,
               ),
               //role
-              _subTitle("Tagine"),
+              Subtitle(title: "Tagine"),
             ],
           ),
           Expanded(child: Container()),
-          _profileImage(
+          BorderedAvatar(
+              radius: 30,
               url: "assets/images/profile/profile.jpg",
               status: color.AppColor.paleBlue),
         ],
@@ -98,17 +101,6 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _subTitle(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        fontSize: 18,
-        color: Colors.black,
-        fontWeight: FontWeight.w500,
-      ),
     );
   }
 
@@ -151,7 +143,9 @@ class _DashboardState extends State<Dashboard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _subTitle("Ticket Details"),
+        Subtitle(
+          title: "Ticket Details",
+        ),
         const SizedBox(
           height: 30,
         ),
@@ -177,26 +171,33 @@ class _DashboardState extends State<Dashboard> {
 
   Widget _driverList() {
     var _data = [];
-    _data.add(_profileImage(
+    _data.add(BorderedAvatar(
+        radius: 30,
         url: "assets/images/profile/profile1.png",
         status: color.AppColor.disable));
-    _data.add(_profileImage(
+    _data.add(BorderedAvatar(
+        radius: 30,
         url: "assets/images/profile/profile2.jpg",
         status: color.AppColor.disable));
-    _data.add(_profileImage(
+    _data.add(BorderedAvatar(
+        radius: 30,
         url: "assets/images/profile/profile3.png",
         status: color.AppColor.disable));
-    _data.add(_profileImage(
+    _data.add(BorderedAvatar(
+        radius: 30,
         url: "assets/images/profile/profile4.jpg",
         status: color.AppColor.disable));
-    _data.add(_profileImage(
+    _data.add(BorderedAvatar(
+        radius: 30,
         url: "assets/images/profile/profile5.jpg",
         status: color.AppColor.disable));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _subTitle("Driver List"),
+        Subtitle(
+          title: "Driver List",
+        ),
         const SizedBox(
           height: 10,
         ),
@@ -217,21 +218,6 @@ class _DashboardState extends State<Dashboard> {
           ),
         )
       ],
-    );
-  }
-
-  Widget _profileImage({required String url, required Color status}) {
-    return Container(
-      padding: const EdgeInsets.all(3),
-      decoration: BoxDecoration(
-        color: status,
-        shape: BoxShape.circle,
-      ),
-      child: CircleAvatar(
-        radius: 30,
-        backgroundColor: Colors.white,
-        backgroundImage: AssetImage(url),
-      ),
     );
   }
 
