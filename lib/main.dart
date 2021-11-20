@@ -5,6 +5,8 @@ import 'package:kibasi/content/dashboard/dashboard.dart';
 import 'package:kibasi/content/profile.dart';
 import 'package:kibasi/onboard/onboard_page.dart';
 
+import 'auth/login_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Kibasi Owner',
       debugShowCheckedModeBanner: false,
-      home: Dashboard(),
+      home: Profile(),
     );
   }
 }
