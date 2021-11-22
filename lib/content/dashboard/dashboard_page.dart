@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:kibasi/content/dashboard/graph.dart' as graph;
 import 'package:kibasi/content/models/min_card_model.dart';
 import 'package:kibasi/content/profile/profile_page.dart';
-import 'package:kibasi/onboard/widgets/bordered_avatar.dart';
-import 'package:kibasi/onboard/widgets/subtitle.dart';
+import 'package:kibasi/widget/bordered_avatar.dart';
+import 'package:kibasi/widget/subtitle.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/custom_card.dart' as card;
 

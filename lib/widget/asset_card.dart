@@ -3,17 +3,17 @@ import 'package:kibasi/utils/custom_color.dart' as color;
 
 class AssetCard extends StatelessWidget {
   final Color? colorCard;
-  final int cardID;
   final Widget? widget;
   final double? height;
   final double? width;
+  final double? padding;
 
   AssetCard(
       {Key? key,
       this.colorCard,
-      this.cardID = 0,
       this.height = 160,
       this.width = 180,
+      this.padding = 20,
       this.widget});
 
   @override
@@ -21,7 +21,7 @@ class AssetCard extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(padding!),
       decoration: BoxDecoration(
         color: colorCard,
         borderRadius: BorderRadius.circular(15),

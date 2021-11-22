@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kibasi/onboard/widgets/asset_card.dart';
-import 'package:kibasi/onboard/widgets/bordered_avatar.dart';
-import 'package:kibasi/onboard/widgets/custom_list.dart';
-import 'package:kibasi/onboard/widgets/subtitle.dart';
+import 'package:kibasi/content/profile/asset_page.dart';
+import 'package:kibasi/widget/asset_card.dart';
+import 'package:kibasi/widget/bordered_avatar.dart';
+import 'package:kibasi/widget/custom_list.dart';
+import 'package:kibasi/widget/subtitle.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 
 class ProfilePage extends StatelessWidget {
@@ -374,7 +375,6 @@ class ProfilePage extends StatelessWidget {
   Widget _busContent() {
     return AssetCard(
       colorCard: color.AppColor.blue,
-      cardID: 1,
       widget: Column(
         children: [
           CustomList(title: 'Active Buses', value: 10, widgetID: 1),
@@ -388,7 +388,6 @@ class ProfilePage extends StatelessWidget {
   Widget _driverContent() {
     return AssetCard(
       colorCard: Colors.white,
-      cardID: 2,
       widget: Column(
         children: [
           CustomList(title: 'Active Drivers', value: 6, widgetID: 2),
@@ -504,11 +503,16 @@ class ProfilePage extends StatelessWidget {
           url: "assets/images/profile/profile5.jpg",
           status: color.AppColor.disable,
           radius: 20),
-      BorderedAvatar(
-        url: "10",
-        status: color.AppColor.paleBlue,
-        isText: true,
-        radius: 20,
+      InkWell(
+        onDoubleTap: () {
+          Get.to(AssetPage(assetID: 1));
+        },
+        child: BorderedAvatar(
+          url: "10",
+          status: color.AppColor.paleBlue,
+          isText: true,
+          radius: 20,
+        ),
       ),
     ];
 
