@@ -6,8 +6,8 @@ import 'package:kibasi/onboard/widgets/custom_list.dart';
 import 'package:kibasi/onboard/widgets/subtitle.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 
-class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

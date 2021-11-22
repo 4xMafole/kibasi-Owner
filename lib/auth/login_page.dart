@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kibasi/auth/register_page.dart';
-import 'package:kibasi/content/dashboard/dashboard.dart';
+import 'package:kibasi/content/dashboard/dashboard_page.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/bezier.dart';
 
@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _submitButton() {
     return InkWell(
       onTap: () {
-        Get.to(Dashboard());
+        Get.to(DashboardPage());
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

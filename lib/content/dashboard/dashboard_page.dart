@@ -4,20 +4,20 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:kibasi/content/dashboard/graph.dart' as graph;
 import 'package:kibasi/content/models/min_card_model.dart';
-import 'package:kibasi/content/profile/profile.dart';
+import 'package:kibasi/content/profile/profile_page.dart';
 import 'package:kibasi/onboard/widgets/bordered_avatar.dart';
 import 'package:kibasi/onboard/widgets/subtitle.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/custom_card.dart' as card;
 
-class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({Key? key}) : super(key: key);
 
   @override
-  _DashboardState createState() => _DashboardState();
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +76,7 @@ class _DashboardState extends State<Dashboard> {
               InkWell(
                 splashColor: color.AppColor.paleBlue,
                 onTap: () {
-                  Get.to(Profile());
+                  Get.to(ProfilePage());
                 },
                 child: Hero(
                   tag: "ProfileAvatar",
