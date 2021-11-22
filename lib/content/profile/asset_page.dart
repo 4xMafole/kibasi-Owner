@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AssetPage extends StatelessWidget {
-  const AssetPage({Key? key}) : super(key: key);
+  final assetID; 
+
+  const AssetPage({required this.assetID})
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Container(
+        child: Text('Asset Page'),
+      ),
+    );
   }
 }
