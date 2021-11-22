@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AssetPage extends StatelessWidget {
-  final assetID; 
+  final int assetID; 
 
-  const AssetPage({required this.assetID})
+  AssetPage({required this.assetID})
 
   @override
   Widget build(BuildContext context) {
