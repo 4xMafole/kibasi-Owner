@@ -470,11 +470,16 @@ class ProfilePage extends StatelessWidget {
           url: "assets/images/profile/profile5.jpg",
           status: color.AppColor.disable,
           radius: 20),
-      BorderedAvatar(
-        url: "7",
-        status: color.AppColor.paleBlue,
-        isText: true,
-        radius: 20,
+      InkWell(
+        onDoubleTap: () {
+          Get.to(AssetPage(assetID: 2));
+        },
+        child: BorderedAvatar(
+          url: "7",
+          status: color.AppColor.paleBlue,
+          isText: true,
+          radius: 20,
+        ),
       ),
     ];
 
