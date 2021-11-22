@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kibasi/onboard/widgets/asset_card.dart';
 import 'package:kibasi/onboard/widgets/bordered_avatar.dart';
 import 'package:kibasi/onboard/widgets/custom_list.dart';
@@ -35,10 +36,16 @@ class Profile extends StatelessWidget {
   Widget _appBar() {
     return Row(
       children: [
-        Icon(
-          Icons.arrow_back_ios,
-          size: 25,
-          color: color.AppColor.paleBlue,
+        InkWell(
+          splashColor: color.AppColor.paleBlue,
+          onTap: () {
+            Get.back();
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            size: 25,
+            color: color.AppColor.paleBlue,
+          ),
         ),
         Expanded(
           child: Center(
@@ -52,10 +59,16 @@ class Profile extends StatelessWidget {
             ),
           ),
         ),
-        Icon(
-          Icons.menu,
-          size: 25,
-          color: color.AppColor.paleBlue,
+        InkWell(
+          splashColor: color.AppColor.paleBlue,
+          onTap: () {
+            //Place a modal bottom sheet hear
+          },
+          child: Icon(
+            Icons.menu,
+            size: 25,
+            color: color.AppColor.paleBlue,
+          ),
         ),
         SizedBox(
           width: 20,
@@ -100,9 +113,12 @@ class Profile extends StatelessWidget {
         //Profile Photo
         Stack(
           children: [
-            _profileImage(
-                url: "assets/images/profile/profile.jpg",
-                status: color.AppColor.gold),
+            Hero(
+              tag: "ProfileAvatar",
+              child: _profileImage(
+                  url: "assets/images/profile/profile.jpg",
+                  status: color.AppColor.gold),
+            ),
             Positioned(
               bottom: 0,
               right: 0,
@@ -456,7 +472,7 @@ class Profile extends StatelessWidget {
           status: color.AppColor.disable,
           radius: 20),
       BorderedAvatar(
-        url: "14",
+        url: "7",
         status: color.AppColor.paleBlue,
         isText: true,
         radius: 20,
@@ -489,7 +505,7 @@ class Profile extends StatelessWidget {
           status: color.AppColor.disable,
           radius: 20),
       BorderedAvatar(
-        url: "25",
+        url: "10",
         status: color.AppColor.paleBlue,
         isText: true,
         radius: 20,

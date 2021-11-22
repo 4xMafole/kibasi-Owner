@@ -4,6 +4,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:kibasi/content/dashboard/graph.dart' as graph;
 import 'package:kibasi/content/models/min_card_model.dart';
+import 'package:kibasi/content/profile/profile.dart';
 import 'package:kibasi/onboard/widgets/bordered_avatar.dart';
 import 'package:kibasi/onboard/widgets/subtitle.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
@@ -21,7 +22,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         color: Colors.white,
         child: Stack(
           children: [
@@ -34,47 +35,63 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Widget _content() {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _header(),
-          _mainDashboard(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _header(),
+        _mainDashboard(),
+      ],
     );
   }
 
   Widget _header() {
     return Padding(
       padding: const EdgeInsets.only(top: 40),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              //username
-              Text(
-                "Hi, Mahes",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //username
+                  Text(
+                    "Hi, Mahes",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  //role
+                  Subtitle(title: "Tagine"),
+                ],
+              ),
+              Expanded(child: Container()),
+              InkWell(
+                splashColor: color.AppColor.paleBlue,
+                onTap: () {
+                  Get.to(Profile());
+                },
+                child: Hero(
+                  tag: "ProfileAvatar",
+                  child: BorderedAvatar(
+                      radius: 30,
+                      url: "assets/images/profile/profile.jpg",
+                      status: color.AppColor.gold),
                 ),
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              //role
-              Subtitle(title: "Tagine"),
             ],
           ),
-          Expanded(child: Container()),
-          BorderedAvatar(
-              radius: 30,
-              url: "assets/images/profile/profile.jpg",
-              status: color.AppColor.paleBlue),
+          const SizedBox(
+            height: 20,
+          ),
+          _title(),
         ],
       ),
     );
@@ -222,26 +239,27 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Widget _mainDashboard() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: 20,
+    return Expanded(
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 30,
+            ),
+            _graphedDetails(),
+            const SizedBox(
+              height: 30,
+            ),
+            _ticketDetails(),
+            const SizedBox(
+              height: 30,
+            ),
+            _driverList(),
+          ],
         ),
-        _title(),
-        const SizedBox(
-          height: 30,
-        ),
-        _graphedDetails(),
-        const SizedBox(
-          height: 30,
-        ),
-        _ticketDetails(),
-        const SizedBox(
-          height: 30,
-        ),
-        _driverList(),
-      ],
+      ),
     );
   }
 }
