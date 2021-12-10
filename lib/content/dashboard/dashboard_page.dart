@@ -212,8 +212,80 @@ class _DashboardPageState extends State<DashboardPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Subtitle(
-          title: "Driver List",
+        Row(
+          children: [
+            Subtitle(
+              title: "Driver List",
+            ),
+            Expanded(child: Container()),
+            Text('View All',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: color.AppColor.paleBlue,
+                )),
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 80,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: _data.length,
+            itemBuilder: (context, index) {
+              return _data[index];
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                width: 10,
+              );
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _busList() {
+    var _data = [];
+    _data.add(BorderedAvatar(
+        radius: 30,
+        url: "assets/images/profile/profile1.png",
+        status: color.AppColor.disable));
+    _data.add(BorderedAvatar(
+        radius: 30,
+        url: "assets/images/profile/profile2.jpg",
+        status: color.AppColor.disable));
+    _data.add(BorderedAvatar(
+        radius: 30,
+        url: "assets/images/profile/profile3.png",
+        status: color.AppColor.disable));
+    _data.add(BorderedAvatar(
+        radius: 30,
+        url: "assets/images/profile/profile4.jpg",
+        status: color.AppColor.disable));
+    _data.add(BorderedAvatar(
+        radius: 30,
+        url: "assets/images/profile/profile5.jpg",
+        status: color.AppColor.disable));
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Subtitle(
+              title: "Bus List",
+            ),
+            Expanded(child: Container()),
+            Text('View All',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: color.AppColor.paleBlue,
+                )),
+          ],
         ),
         const SizedBox(
           height: 10,
@@ -257,6 +329,10 @@ class _DashboardPageState extends State<DashboardPage> {
               height: 30,
             ),
             _driverList(),
+            const SizedBox(
+              height: 30,
+            ),
+            _busList(),
           ],
         ),
       ),
