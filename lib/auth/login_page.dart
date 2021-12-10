@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kibasi/auth/forgot_password_page.dart';
 import 'package:kibasi/auth/register_page.dart';
 import 'package:kibasi/content/dashboard/dashboard_page.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
@@ -293,9 +294,7 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Password forgotten"),
-                        ));
+                        Get.to(ForgotPasswordPage());
                       },
                       child: Text('Forgot Password ?',
                           style: TextStyle(

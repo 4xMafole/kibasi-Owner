@@ -11,7 +11,7 @@ class CustomBezier extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Transform.rotate(
-        angle: -pi / 3.5,
+        angle: -pi / 3,
         child: ClipPath(
           clipper: ClipPainter(),
           child: Container(

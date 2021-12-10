@@ -39,6 +39,7 @@ dependencies:
       url: "https://github.com/alionour/Flutter-Neumorphic"
   get: ^4.1.4
   intl: ^0.17.0
+  otp_screen: 
 
 dev_dependencies:
   flutter_test:
