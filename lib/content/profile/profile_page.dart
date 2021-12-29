@@ -471,8 +471,8 @@ class ProfilePage extends StatelessWidget {
           status: color.AppColor.disable,
           radius: 20),
       InkWell(
-        onDoubleTap: () {
-          Get.to(AssetPage(assetID: 2));
+        onTap: () {
+          Get.to(AssetPage(assetID: 1));
         },
         child: BorderedAvatar(
           url: "7",
@@ -509,8 +509,8 @@ class ProfilePage extends StatelessWidget {
           status: color.AppColor.disable,
           radius: 20),
       InkWell(
-        onDoubleTap: () {
-          Get.to(AssetPage(assetID: 1));
+        onTap: () {
+          Get.to(AssetPage(assetID: 0));
         },
         child: BorderedAvatar(
           url: "10",

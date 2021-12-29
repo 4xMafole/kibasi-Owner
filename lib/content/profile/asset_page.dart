@@ -10,17 +10,18 @@ class AssetPage extends StatefulWidget {
   AssetPage({required this.assetID});
 
   @override
-  State<AssetPage> createState() => _AssetPageState();
+  State<AssetPage> createState() => _AssetPageState(assetID);
 }
 
 class _AssetPageState extends State<AssetPage> {
   late List<String> _assets;
   late int _assetIndex;
 
+  _AssetPageState(this._assetIndex);
+
   @override
   void initState() {
     super.initState();
-    _assetIndex = 0;
     _assets = ["Buses", "Drivers"];
   }
 
@@ -42,7 +43,7 @@ class _AssetPageState extends State<AssetPage> {
               height: 15,
             ),
             _assetChips(),
-            _content(),
+            _assetIndex == 0 ? _busContent() : _driverContent(),
           ],
         ),
       ),
@@ -110,7 +111,7 @@ class _AssetPageState extends State<AssetPage> {
     );
   }
 
-  Widget _content() {
+  Widget _driverContent() {
     return Expanded(
       child: Container(
         height: MediaQuery.of(context).size.height,
@@ -119,7 +120,7 @@ class _AssetPageState extends State<AssetPage> {
             crossAxisCount: 2,
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
-            children: List.generate(10, (index) {
+            children: List.generate(3, (index) {
               return AssetCard(
                 padding: 10,
                 colorCard: Colors.white,
@@ -174,6 +175,92 @@ class _AssetPageState extends State<AssetPage> {
                         color: Colors.black38,
                         fontWeight: FontWeight.w400,
                       ),
+                    ),
+                  ],
+                ),
+              );
+            })),
+      ),
+    );
+  }
+
+  Widget _busContent() {
+    return Expanded(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        child: GridView.count(
+            padding: EdgeInsets.all(20),
+            crossAxisCount: 2,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
+            children: List.generate(7, (index) {
+              return AssetCard(
+                padding: 10,
+                colorCard: Colors.white,
+                widget: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        BorderedAvatar(
+                          url: "assets/images/profile/profile1.png",
+                          status: color.AppColor.green,
+                          radius: 20,
+                        ),
+                        Expanded(child: Container()),
+                        Icon(
+                          Icons.more_vert,
+                          size: 20,
+                          color: color.AppColor.paleBlue,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'Kilimanjaro Exp. 01',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'DER T0132',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black38,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Seat: ' + '20',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black38,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Expanded(child: Container()),
+                        Text(
+                          'Price: ' + '20,000/=',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black38,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
