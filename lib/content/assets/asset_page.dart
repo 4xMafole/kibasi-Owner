@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kibasi/content/assets/edit_bus_page.dart';
+import 'package:kibasi/content/assets/edit_driver.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/asset_card.dart';
 import 'package:kibasi/widget/bordered_avatar.dart';
@@ -29,9 +31,11 @@ class _AssetPageState extends State<AssetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+          backgroundColor: color.AppColor.paleBlue,
+          splashColor: color.AppColor.blue,
           child: Icon(Icons.add),
           onPressed: () {
-            //Open a respective edit page.
+            _assetIndex == 0 ? Get.to(EditBusPage()) : Get.to(EditDriverPage());
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
