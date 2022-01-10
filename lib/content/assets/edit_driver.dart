@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kibasi/auth/login_page.dart';
 import 'package:kibasi/widget/bezier.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
@@ -14,6 +17,29 @@ class EditDriverPage extends StatefulWidget {
 }
 
 class _EditDriverPageState extends State<EditDriverPage> {
+  String initialValue = 'Select Bus';
+  var _photo;
+  ImagePicker picker = ImagePicker();
+
+  _imgFromGallery() async {
+    XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _photo = image!;
+    });
+  }
+
+  var busList = [
+    'Select Bus',
+    'TAZ 1324',
+    'DJA 0234',
+    'REQ 3228',
+    'JFO 3643',
+    'OWE 3214',
+    'REJ 7654',
+    'DFG 2987'
+  ];
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -89,7 +115,7 @@ class _EditDriverPageState extends State<EditDriverPage> {
           TextField(
               decoration: InputDecoration(
                   border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
+                  fillColor: color.AppColor.inputColor,
                   filled: true))
         ],
       ),
@@ -120,15 +146,25 @@ class _EditDriverPageState extends State<EditDriverPage> {
   }
 
   Widget _title() {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
-        // Get.to(); It should open a gallery
+        _showPicker(context);
       },
-      child: BorderedAvatar(
-        url: "assets/images/avatar.png",
-        status: color.AppColor.paleBlue,
-        radius: 50,
-      ),
+      child: _photo != null
+          ? ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.file(
+                File(_photo.path),
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
+            )
+          : BorderedAvatar(
+              url: "assets/images/avatar.png",
+              status: color.AppColor.paleBlue,
+              radius: 50,
+            ),
     );
   }
 
@@ -136,8 +172,10 @@ class _EditDriverPageState extends State<EditDriverPage> {
     return Column(
       children: <Widget>[
         _entryField("Driver's name"),
-        _entryField(
-            "Given bus"), //Give  the list of the added bus from the system.
+        SizedBox(
+          height: 10,
+        ),
+        _dropDown("Given bus"),
       ],
     );
   }
@@ -173,5 +211,77 @@ class _EditDriverPageState extends State<EditDriverPage> {
         ],
       ),
     );
+  }
+
+  Widget _dropDown(String title) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          margin: EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            color: color.AppColor.inputColor,
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton(
+              isExpanded: true,
+              iconEnabledColor: Colors.black,
+              style: TextStyle(color: Colors.black, fontSize: 16),
+              dropdownColor: color.AppColor.inputColor,
+              focusColor: Colors.black,
+              value: initialValue,
+              icon: Icon(Icons.keyboard_arrow_down),
+              items: busList.map((String items) {
+                return DropdownMenuItem(value: items, child: Text(items));
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  initialValue = newValue!;
+                });
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(
+                        Icons.photo_library,
+                        color: color.AppColor.paleBlue,
+                      ),
+                      title: new Text(
+                        'Photo Library',
+                        style: TextStyle(
+                          color: color.AppColor.paleBlue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
