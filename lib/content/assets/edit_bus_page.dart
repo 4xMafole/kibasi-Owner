@@ -139,6 +139,8 @@ class _EditBusPageState extends State<EditBusPage> {
         _entryField("Plate number"),
         _entryField("Number of seats"),
         _entryField("Price per seat"),
+        _entryField("From region"),
+        _entryField("To region"),
         _entryField("Bus route"),
         _entryField("Departure time"),
         _entryField("Arrival time"),
