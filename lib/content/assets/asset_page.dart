@@ -28,6 +28,12 @@ class _AssetPageState extends State<AssetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            //Open a respective edit page.
+          }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
         padding: const EdgeInsets.only(
           left: 16,
