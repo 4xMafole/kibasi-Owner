@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kibasi/content/profile/asset_page.dart';
+import 'package:kibasi/content/assets/asset_page.dart';
 import 'package:kibasi/widget/asset_card.dart';
 import 'package:kibasi/widget/bordered_avatar.dart';
 import 'package:kibasi/widget/custom_list.dart';
