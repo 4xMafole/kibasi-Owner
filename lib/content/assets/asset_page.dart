@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kibasi/content/assets/edit_bus_page.dart';
-import 'package:kibasi/content/assets/edit_driver.dart';
+import 'package:kibasi/content/assets/edit_driver_page.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/asset_card.dart';
 import 'package:kibasi/widget/bordered_avatar.dart';
