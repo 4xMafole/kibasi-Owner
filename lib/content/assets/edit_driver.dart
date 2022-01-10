@@ -161,9 +161,9 @@ class _EditDriverPageState extends State<EditDriverPage> {
           Expanded(
             child: Center(
               child: Text(
-                'Add New Driver',
+                'ADD NEW DRIVER',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.black38,
                 ),

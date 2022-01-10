@@ -165,9 +165,9 @@ class _EditBusPageState extends State<EditBusPage> {
           Expanded(
             child: Center(
               child: Text(
-                'Add New Bus',
+                'ADD NEW BUS',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.black38,
                 ),
