@@ -38,9 +38,15 @@ dependencies:
     git:
       url: "https://github.com/alionour/Flutter-Neumorphic"
   get: ^4.1.4
-  intl: ^0.17.0
+  # intl: ^0.17.0
+  currency_text_input_formatter: ^2.1.5
   image_picker: ^0.8.4+4
   otp_screen: 
+  url_launcher: ^5.4.10
+  rflutter_alert: ^1.0.3
+  
+dependency_overrides:
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
