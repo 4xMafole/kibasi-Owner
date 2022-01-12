@@ -5,7 +5,9 @@ import 'package:kibasi/utils/custom_color.dart' as color;
 class SubComponent {
   static final SubComponent _subComponent = SubComponent._internal();
 
-  bool? isPremium = true;
+  bool? isPremium = false;
+  bool? isPro = false;
+
   factory SubComponent() {
     return _subComponent;
   }
