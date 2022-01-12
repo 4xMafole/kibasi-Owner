@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kibasi/content/assets/asset_page.dart';
+import 'package:kibasi/content/subscription/components.dart';
+import 'package:kibasi/content/subscription/owner_gate_page.dart';
+import 'package:kibasi/content/subscription/subscription_page.dart';
+import 'package:kibasi/content/subscription/upgrade_page.dart';
 import 'package:kibasi/widget/asset_card.dart';
 import 'package:kibasi/widget/bordered_avatar.dart';
 import 'package:kibasi/widget/custom_list.dart';
@@ -321,14 +325,19 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _subProgressBar() {
-    return Container(
-      height: 10,
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        child: LinearProgressIndicator(
-          value: 0.7,
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          backgroundColor: Colors.white10,
+    return GestureDetector(
+      onTap: () {
+        Get.to(OwnerGatePage());
+      },
+      child: Container(
+        height: 10,
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          child: LinearProgressIndicator(
+            value: 0.7,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            backgroundColor: Colors.white10,
+          ),
         ),
       ),
     );
