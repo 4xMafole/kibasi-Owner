@@ -10,4 +10,5 @@ class AppColor {
   static Color disable = const Color(0xFFD4D4D4);
   static Color gold = const Color(0xFFFFA600);
   static Color green = const Color(0xFF28D811);
+  static Color red = const Color(0xFFF20F0F);
 }
