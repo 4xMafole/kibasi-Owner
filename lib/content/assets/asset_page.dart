@@ -21,6 +21,8 @@ class _AssetPageState extends State<AssetPage> {
 
   _AssetPageState(this._assetIndex);
 
+  var menuItems = ['Edit', 'Delete'];
+
   @override
   void initState() {
     super.initState();
@@ -148,10 +150,32 @@ class _AssetPageState extends State<AssetPage> {
                           radius: 20,
                         ),
                         Expanded(child: Container()),
-                        Icon(
-                          Icons.more_vert,
-                          size: 20,
-                          color: color.AppColor.paleBlue,
+                        PopupMenuButton<String>(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                          ),
+                          padding: EdgeInsets.all(0),
+                          onSelected: onSelect,
+                          itemBuilder: (BuildContext context) {
+                            return menuItems.map((String choice) {
+                              return PopupMenuItem(
+                                child: Text(
+                                  choice,
+                                  style: TextStyle(
+                                    color: color.AppColor.paleBlue,
+                                  ),
+                                ),
+                                value: choice,
+                              );
+                            }).toList();
+                          },
+                          child: Icon(
+                            Icons.more_vert,
+                            size: 20,
+                            color: color.AppColor.paleBlue,
+                          ),
                         ),
                       ],
                     ),
@@ -221,10 +245,32 @@ class _AssetPageState extends State<AssetPage> {
                           radius: 20,
                         ),
                         Expanded(child: Container()),
-                        Icon(
-                          Icons.more_vert,
-                          size: 20,
-                          color: color.AppColor.paleBlue,
+                        PopupMenuButton<String>(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                          ),
+                          padding: EdgeInsets.all(0),
+                          onSelected: onSelect,
+                          itemBuilder: (BuildContext context) {
+                            return menuItems.map((String choice) {
+                              return PopupMenuItem(
+                                child: Text(
+                                  choice,
+                                  style: TextStyle(
+                                    color: color.AppColor.paleBlue,
+                                  ),
+                                ),
+                                value: choice,
+                              );
+                            }).toList();
+                          },
+                          child: Icon(
+                            Icons.more_vert,
+                            size: 20,
+                            color: color.AppColor.paleBlue,
+                          ),
                         ),
                       ],
                     ),
@@ -278,6 +324,31 @@ class _AssetPageState extends State<AssetPage> {
                 ),
               );
             })),
+      ),
+    );
+  }
+
+  void onSelect(String value) {
+    switch (value) {
+      case 'Edit':
+        _assetIndex == 0
+            ? Get.to(const EditBusPage())
+            : Get.to(const EditDriverPage());
+        break;
+      case 'Delete':
+        print("Delete clicked");
+        break;
+    }
+  }
+
+  Widget _viewDialog() {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Container(
+        height: 300,
+        width: 300,
       ),
     );
   }
