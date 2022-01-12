@@ -74,8 +74,12 @@ class _OwnerGatePageState extends State<OwnerGatePage> {
     Alert(
       context: context,
       image: BorderedAvatar(
-        url: "assets/images/avatar.png",
-        status: color.AppColor.red,
+        url: "assets/images/profile/profile.jpg",
+        status: subCommponent.isPro!
+            ? color.AppColor.blue
+            : subCommponent.isPremium!
+                ? color.AppColor.gold
+                : color.AppColor.purple,
         radius: 50,
       ),
       title: "Wrong Key",
@@ -125,7 +129,7 @@ class _OwnerGatePageState extends State<OwnerGatePage> {
   Widget _submitButton() {
     return GestureDetector(
       onTap: () {
-        subCommponent.isPremium! ? Get.to(const UpgradePage()) : _alert();
+        Get.to(const UpgradePage());
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -152,8 +156,12 @@ class _OwnerGatePageState extends State<OwnerGatePage> {
 
   Widget _profile() {
     return BorderedAvatar(
-      url: "assets/images/avatar.png",
-      status: color.AppColor.paleBlue,
+      url: "assets/images/profile/profile.jpg",
+      status: subCommponent.isPro!
+          ? color.AppColor.blue
+          : subCommponent.isPremium!
+              ? color.AppColor.gold
+              : color.AppColor.purple,
       radius: 50,
     );
   }

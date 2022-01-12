@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kibasi/content/dashboard/dashboard_page.dart';
 import 'package:kibasi/content/subscription/components.dart';
 import 'package:kibasi/content/subscription/upgrade_page.dart';
 import 'package:kibasi/widget/asset_card.dart';
@@ -88,19 +89,19 @@ class _UpgradePageState extends State<UpgradePage> {
     );
   }
 
-  _alert() {
+  _alert({required Color alertColor}) {
     Alert(
       context: context,
       image: BorderedAvatar(
-        url: "assets/images/avatar.png",
-        status: color.AppColor.red,
+        url: "assets/images/profile/profile.jpg",
+        status: alertColor,
         radius: 50,
       ),
-      title: "Wrong Key",
+      title: "Success",
       style: AlertStyle(
-        isCloseButton: false,
+        isButtonVisible: false,
         titleStyle: TextStyle(
-          color: color.AppColor.red,
+          color: alertColor,
         ),
       ),
       content: Column(
@@ -113,7 +114,7 @@ class _UpgradePageState extends State<UpgradePage> {
               bottom: 20,
             ),
             child: Text(
-              'The key is incorrect. Please try again.',
+              'Successfully unlocked the plan',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black38,
@@ -122,28 +123,13 @@ class _UpgradePageState extends State<UpgradePage> {
           )
         ],
       ),
-      buttons: [
-        DialogButton(
-            color: color.AppColor.paleBlue,
-            splashColor: color.AppColor.blue,
-            radius: BorderRadius.circular(10),
-            child: Text(
-              'Try Again',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            onPressed: () {
-              Get.back();
-            }),
-      ],
     ).show();
   }
 
   Widget _submitButton({required String text, required Color buttonColor}) {
     return GestureDetector(
       onTap: () {
-        subCommponent.isPremium! ? Get.to(const UpgradePage()) : _alert();
+        _alert(alertColor: buttonColor);
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -174,7 +160,11 @@ class _UpgradePageState extends State<UpgradePage> {
   Widget _profile() {
     return BorderedAvatar(
       url: "assets/images/profile/profile.jpg",
-      status: color.AppColor.green,
+      status: subCommponent.isPro!
+          ? color.AppColor.blue
+          : subCommponent.isPremium!
+              ? color.AppColor.gold
+              : color.AppColor.purple,
       radius: 30,
     );
   }
@@ -223,24 +213,24 @@ class _UpgradePageState extends State<UpgradePage> {
         buttonText: "Continue",
         title: "Trial",
         cost: "Free",
-        planColor: color.AppColor.green,
+        planColor: color.AppColor.purple,
         content: Column(
           children: [
             _planListContent(
               text: "Analytics Dashboard",
-              color: color.AppColor.green,
+              color: color.AppColor.purple,
             ),
             _planListContent(
               text: "2 Allowed Buses",
-              color: color.AppColor.green,
+              color: color.AppColor.purple,
             ),
             _planListContent(
               text: "2 Allowed Drivers",
-              color: color.AppColor.green,
+              color: color.AppColor.purple,
             ),
             _planListContent(
               text: "Allowed Advertisements",
-              color: color.AppColor.green,
+              color: color.AppColor.purple,
             ),
           ],
         ));
