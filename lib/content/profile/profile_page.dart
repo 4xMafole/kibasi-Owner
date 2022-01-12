@@ -121,23 +121,34 @@ class ProfilePage extends StatelessWidget {
             Hero(
               tag: "ProfileAvatar",
               child: _profileImage(
-                  url: "assets/images/profile/profile.jpg",
-                  status: color.AppColor.gold),
+                url: "assets/images/profile/profile.jpg",
+                status: subCommponent.isPro!
+                    ? color.AppColor.blue
+                    : subCommponent.isPremium!
+                        ? color.AppColor.gold
+                        : color.AppColor.purple,
+              ),
             ),
             Positioned(
               bottom: 0,
               right: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: color.AppColor.gold,
-                ),
-                child: Icon(
-                  Icons.star_outline,
-                  size: 25,
-                  color: Colors.white,
-                ),
-              ),
+              child: subCommponent.isPremium!
+                  ? Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: subCommponent.isPro!
+                            ? color.AppColor.blue
+                            : subCommponent.isPremium!
+                                ? color.AppColor.gold
+                                : color.AppColor.purple,
+                      ),
+                      child: Icon(
+                        Icons.star_outline,
+                        size: 25,
+                        color: Colors.white,
+                      ),
+                    )
+                  : SizedBox(),
             ),
           ],
         ),
@@ -208,28 +219,46 @@ class ProfilePage extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         border: Border.all(
-          width: 1.5,
-          color: color.AppColor.paleBlue,
+          width: 3,
+          color: subCommponent.isPro!
+              ? color.AppColor.blue
+              : subCommponent.isPremium!
+                  ? color.AppColor.gold
+                  : color.AppColor.purple,
         ),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         children: [
+          SizedBox(
+            width: 10,
+          ),
           Icon(
             Icons.star,
             size: 25,
-            color: color.AppColor.gold,
+            color: subCommponent.isPro!
+                ? color.AppColor.blue
+                : subCommponent.isPremium!
+                    ? color.AppColor.gold
+                    : color.AppColor.purple,
           ),
           SizedBox(
             width: 5,
           ),
           Text(
-            'PREMIUM ACCOUNT',
+            subCommponent.isPro!
+                ? 'PROFESSIONAL ACCOUNT'
+                : subCommponent.isPremium!
+                    ? 'PREMIUM ACCOUNT'
+                    : 'FREE ACCOUNT',
             style: TextStyle(
               fontSize: 14,
               color: Colors.black38,
               fontWeight: FontWeight.w700,
             ),
+          ),
+          SizedBox(
+            width: 10,
           ),
         ],
       ),

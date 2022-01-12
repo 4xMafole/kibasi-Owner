@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:kibasi/content/dashboard/graph.dart' as graph;
 import 'package:kibasi/content/models/min_card_model.dart';
 import 'package:kibasi/content/profile/profile_page.dart';
+import 'package:kibasi/content/subscription/components.dart';
 import 'package:kibasi/widget/bordered_avatar.dart';
 import 'package:kibasi/widget/subtitle.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
@@ -81,9 +82,14 @@ class _DashboardPageState extends State<DashboardPage> {
                 child: Hero(
                   tag: "ProfileAvatar",
                   child: BorderedAvatar(
-                      radius: 30,
-                      url: "assets/images/profile/profile.jpg",
-                      status: color.AppColor.gold),
+                    radius: 30,
+                    url: "assets/images/profile/profile.jpg",
+                    status: subCommponent.isPro!
+                        ? color.AppColor.blue
+                        : subCommponent.isPremium!
+                            ? color.AppColor.gold
+                            : color.AppColor.purple,
+                  ),
                 ),
               ),
             ],
