@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
+import 'package:kibasi/content/assets/dashbd_asset_page.dart';
 import 'package:kibasi/content/dashboard/graph.dart' as graph;
 import 'package:kibasi/content/models/min_card_model.dart';
 import 'package:kibasi/content/profile/profile_page.dart';
 import 'package:kibasi/content/subscription/components.dart';
 import 'package:kibasi/widget/bordered_avatar.dart';
+import 'package:kibasi/widget/custom_list.dart';
 import 'package:kibasi/widget/subtitle.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/custom_card.dart' as card;
@@ -194,26 +196,61 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget _driverList() {
     var _data = [];
-    _data.add(BorderedAvatar(
-        radius: 30,
-        url: "assets/images/profile/profile1.png",
-        status: color.AppColor.disable));
-    _data.add(BorderedAvatar(
-        radius: 30,
-        url: "assets/images/profile/profile2.jpg",
-        status: color.AppColor.disable));
-    _data.add(BorderedAvatar(
-        radius: 30,
-        url: "assets/images/profile/profile3.png",
-        status: color.AppColor.disable));
-    _data.add(BorderedAvatar(
-        radius: 30,
-        url: "assets/images/profile/profile4.jpg",
-        status: color.AppColor.disable));
-    _data.add(BorderedAvatar(
-        radius: 30,
-        url: "assets/images/profile/profile5.jpg",
-        status: color.AppColor.disable));
+    _data.add(GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => _viewDialog(1));
+      },
+      child: BorderedAvatar(
+          radius: 30,
+          url: "assets/images/profile/profile1.png",
+          status: color.AppColor.disable),
+    ));
+    _data.add(GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => _viewDialog(1));
+      },
+      child: BorderedAvatar(
+          radius: 30,
+          url: "assets/images/profile/profile2.jpg",
+          status: color.AppColor.disable),
+    ));
+    _data.add(GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => _viewDialog(1));
+      },
+      child: BorderedAvatar(
+          radius: 30,
+          url: "assets/images/profile/profile3.png",
+          status: color.AppColor.disable),
+    ));
+    _data.add(GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => _viewDialog(1));
+      },
+      child: BorderedAvatar(
+          radius: 30,
+          url: "assets/images/profile/profile4.jpg",
+          status: color.AppColor.disable),
+    ));
+    _data.add(GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => _viewDialog(1));
+      },
+      child: BorderedAvatar(
+          radius: 30,
+          url: "assets/images/profile/profile5.jpg",
+          status: color.AppColor.disable),
+    ));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,11 +261,16 @@ class _DashboardPageState extends State<DashboardPage> {
               title: "Driver List",
             ),
             Expanded(child: Container()),
-            Text('View All',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color.AppColor.paleBlue,
-                )),
+            GestureDetector(
+              onTap: () {
+                Get.to(DashboardAssetPage(assetID: 1));
+              },
+              child: Text('View All',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: color.AppColor.paleBlue,
+                  )),
+            ),
           ],
         ),
         const SizedBox(
@@ -256,26 +298,61 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget _busList() {
     var _data = [];
-    _data.add(BorderedAvatar(
-        radius: 30,
-        url: "assets/images/profile/profile1.png",
-        status: color.AppColor.disable));
-    _data.add(BorderedAvatar(
-        radius: 30,
-        url: "assets/images/profile/profile2.jpg",
-        status: color.AppColor.disable));
-    _data.add(BorderedAvatar(
-        radius: 30,
-        url: "assets/images/profile/profile3.png",
-        status: color.AppColor.disable));
-    _data.add(BorderedAvatar(
-        radius: 30,
-        url: "assets/images/profile/profile4.jpg",
-        status: color.AppColor.disable));
-    _data.add(BorderedAvatar(
-        radius: 30,
-        url: "assets/images/profile/profile5.jpg",
-        status: color.AppColor.disable));
+    _data.add(GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => _viewDialog(0));
+      },
+      child: BorderedAvatar(
+          radius: 30,
+          url: "assets/images/profile/profile1.png",
+          status: color.AppColor.disable),
+    ));
+    _data.add(GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => _viewDialog(0));
+      },
+      child: BorderedAvatar(
+          radius: 30,
+          url: "assets/images/profile/profile1.png",
+          status: color.AppColor.disable),
+    ));
+    _data.add(GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => _viewDialog(0));
+      },
+      child: BorderedAvatar(
+          radius: 30,
+          url: "assets/images/profile/profile1.png",
+          status: color.AppColor.disable),
+    ));
+    _data.add(GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => _viewDialog(0));
+      },
+      child: BorderedAvatar(
+          radius: 30,
+          url: "assets/images/profile/profile1.png",
+          status: color.AppColor.disable),
+    ));
+    _data.add(GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => _viewDialog(0));
+      },
+      child: BorderedAvatar(
+          radius: 30,
+          url: "assets/images/profile/profile1.png",
+          status: color.AppColor.disable),
+    ));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -286,11 +363,16 @@ class _DashboardPageState extends State<DashboardPage> {
               title: "Bus List",
             ),
             Expanded(child: Container()),
-            Text('View All',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color.AppColor.paleBlue,
-                )),
+            GestureDetector(
+              onTap: () {
+                Get.to(DashboardAssetPage(assetID: 0));
+              },
+              child: Text('View All',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: color.AppColor.paleBlue,
+                  )),
+            ),
           ],
         ),
         const SizedBox(
@@ -341,6 +423,136 @@ class _DashboardPageState extends State<DashboardPage> {
             _busList(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _viewDialog(int assetIndex) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Container(
+        height: 350,
+        child: assetIndex == 0 ? _busDialog() : _driverDialog(),
+      ),
+    );
+  }
+
+  Widget _driverDialog() {
+    double dialogWidth = 280;
+    double titleFontSize = 16;
+
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Driver',
+            value: 'Jorge Steward',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Bus',
+            value: 'DTZ 1920 (Kilimanjaro Express)',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Journey',
+            value: 'Dar es Salaam - Arusha',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Route',
+            value: 'Bagamoyo',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Bookings',
+            value: '34',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _busDialog() {
+    double dialogWidth = 280;
+    double titleFontSize = 16;
+
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Bus',
+            value: 'DTZ 1920 (Kilimanjaro Express)',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Driver',
+            value: 'Jorge Steward',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Journey',
+            value: 'Dar es Salaam - Arusha',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Route',
+            value: 'Bagamoyo',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Bookings',
+            value: '34',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+        ],
       ),
     );
   }

@@ -3,17 +3,25 @@ import 'package:kibasi/utils/custom_color.dart' as color;
 
 class CustomList extends StatelessWidget {
   final String? title;
-  final int? value, widgetID;
+  final String? value;
+  final int? widgetID;
   final bool? isMoney;
+  final double? width, titleSize;
 
-  CustomList({this.title, this.value, this.widgetID, this.isMoney});
+  CustomList(
+      {this.title,
+      this.value,
+      this.widgetID,
+      this.isMoney,
+      this.width,
+      this.titleSize});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
-          width: 130,
+          width: width ?? 130,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -24,7 +32,7 @@ class CustomList extends StatelessWidget {
                         ? title! + " (Tshs)"
                         : title!,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: titleSize ?? 12,
                   color: widgetID == 1 ? Colors.white70 : Colors.black38,
                   fontWeight: widgetID == 1 ? null : FontWeight.bold,
                 ),
@@ -33,7 +41,7 @@ class CustomList extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                value.toString(),
+                value!,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

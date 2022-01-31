@@ -5,6 +5,7 @@ import 'package:kibasi/content/assets/edit_driver_page.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/asset_card.dart';
 import 'package:kibasi/widget/bordered_avatar.dart';
+import 'package:kibasi/widget/custom_list.dart';
 
 class DashboardAssetPage extends StatefulWidget {
   final int assetID;
@@ -21,7 +22,7 @@ class _DashboardAssetPageState extends State<DashboardAssetPage> {
 
   _DashboardAssetPageState(this._assetIndex);
 
-  var menuItems = ['View', 'Edit', 'Delete'];
+  var menuItems = ['View'];
 
   @override
   void initState() {
@@ -32,14 +33,6 @@ class _DashboardAssetPageState extends State<DashboardAssetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: color.AppColor.paleBlue,
-          splashColor: color.AppColor.blue,
-          child: Icon(Icons.add),
-          onPressed: () {
-            _assetIndex == 0 ? Get.to(EditBusPage()) : Get.to(EditDriverPage());
-          }),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
         padding: const EdgeInsets.only(
           left: 16,
@@ -79,7 +72,7 @@ class _DashboardAssetPageState extends State<DashboardAssetPage> {
         Expanded(
           child: Center(
             child: Text(
-              'ASSETS',
+              'ASSETS USED',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -333,15 +326,6 @@ class _DashboardAssetPageState extends State<DashboardAssetPage> {
       case 'View':
         showDialog(
             context: context, builder: (BuildContext context) => _viewDialog());
-        _viewDialog();
-        break;
-      case 'Edit':
-        _assetIndex == 0
-            ? Get.to(const EditBusPage())
-            : Get.to(const EditDriverPage());
-        break;
-      case 'Delete':
-        print("Delete clicked");
         break;
     }
   }
@@ -352,8 +336,126 @@ class _DashboardAssetPageState extends State<DashboardAssetPage> {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Container(
-        height: 300,
-        width: 300,
+        height: 350,
+        child: _assetIndex == 0 ? _busDialog() : _driverDialog(),
+      ),
+    );
+  }
+
+  Widget _driverDialog() {
+    double dialogWidth = 280;
+    double titleFontSize = 16;
+
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Driver',
+            value: 'Jorge Steward',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Bus',
+            value: 'DTZ 1920 (Kilimanjaro Express)',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Journey',
+            value: 'Dar es Salaam - Arusha',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Route',
+            value: 'Bagamoyo',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Bookings',
+            value: '34',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _busDialog() {
+    double dialogWidth = 280;
+    double titleFontSize = 16;
+
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Bus',
+            value: 'DTZ 1920 (Kilimanjaro Express)',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Driver',
+            value: 'Jorge Steward',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Journey',
+            value: 'Dar es Salaam - Arusha',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Route',
+            value: 'Bagamoyo',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomList(
+            width: dialogWidth,
+            titleSize: titleFontSize,
+            title: 'Bookings',
+            value: '34',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+        ],
       ),
     );
   }

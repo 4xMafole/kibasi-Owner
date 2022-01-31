@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kibasi/auth/login_page.dart';
 import 'package:kibasi/content/assets/asset_page.dart';
+import 'package:kibasi/content/profile/edit_profile_page.dart';
 import 'package:kibasi/content/subscription/components.dart';
 import 'package:kibasi/content/subscription/owner_gate_page.dart';
 import 'package:kibasi/content/subscription/subscription_page.dart';
@@ -27,7 +29,7 @@ class ProfilePage extends StatelessWidget {
             SizedBox(
               height: 40,
             ),
-            _appBar(),
+            _appBar(context),
             SizedBox(
               height: 10,
             ),
@@ -38,7 +40,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _appBar() {
+  Widget _appBar(context) {
     return Row(
       children: [
         InkWell(
@@ -67,7 +69,7 @@ class ProfilePage extends StatelessWidget {
         InkWell(
           splashColor: color.AppColor.paleBlue,
           onTap: () {
-            //Place a modal bottom sheet hear
+            _menuSheet(context);
           },
           child: Icon(
             Icons.menu,
@@ -78,10 +80,16 @@ class ProfilePage extends StatelessWidget {
         SizedBox(
           width: 20,
         ),
-        Icon(
-          Icons.notifications_none,
-          size: 25,
-          color: color.AppColor.paleBlue,
+        InkWell(
+          splashColor: color.AppColor.paleBlue,
+          onTap: () {
+            _notification(context);
+          },
+          child: Icon(
+            Icons.notifications_none,
+            size: 25,
+            color: color.AppColor.paleBlue,
+          ),
         ),
       ],
     );
@@ -392,19 +400,28 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomList(title: 'Total Sales', value: 2890, isMoney: true),
+          CustomList(title: 'Total Sales', value: '2890', isMoney: true),
           SizedBox(
             height: 6,
           ),
-          CustomList(title: 'Total Bookings', value: 234),
+          CustomList(
+            title: 'Total Bookings',
+            value: '234',
+          ),
           SizedBox(
             height: 6,
           ),
-          CustomList(title: 'Total Travellers', value: 2890),
+          CustomList(
+            title: 'Total Travellers',
+            value: '2890',
+          ),
           SizedBox(
             height: 6,
           ),
-          CustomList(title: 'Total Routes', value: 289),
+          CustomList(
+            title: 'Total Routes',
+            value: '289',
+          ),
         ],
       ),
     );
@@ -415,9 +432,9 @@ class ProfilePage extends StatelessWidget {
       colorCard: color.AppColor.blue,
       widget: Column(
         children: [
-          CustomList(title: 'Active Buses', value: 10, widgetID: 1),
-          CustomList(title: 'Inactive Buses', value: 0, widgetID: 1),
-          CustomList(title: 'Total Buses', value: 10, widgetID: 1),
+          CustomList(title: 'Active Buses', value: '10', widgetID: 1),
+          CustomList(title: 'Inactive Buses', value: '0', widgetID: 1),
+          CustomList(title: 'Total Buses', value: '10', widgetID: 1),
         ],
       ),
     );
@@ -428,9 +445,9 @@ class ProfilePage extends StatelessWidget {
       colorCard: Colors.white,
       widget: Column(
         children: [
-          CustomList(title: 'Active Drivers', value: 6, widgetID: 2),
-          CustomList(title: 'Inactive Drivers', value: 1, widgetID: 2),
-          CustomList(title: 'Total Drivers', value: 7, widgetID: 2),
+          CustomList(title: 'Active Drivers', value: '6', widgetID: 2),
+          CustomList(title: 'Inactive Drivers', value: '1', widgetID: 2),
+          CustomList(title: 'Total Drivers', value: '7', widgetID: 2),
         ],
       ),
     );
@@ -577,5 +594,148 @@ class ProfilePage extends StatelessWidget {
     });
 
     return Stack(children: stackLayers);
+  }
+
+  _menuSheet(context) {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: Container(
+              child: Wrap(
+                children: <Widget>[
+                  ListTile(
+                      leading: Icon(
+                        Icons.person,
+                        color: color.AppColor.paleBlue,
+                      ),
+                      title: Text(
+                        'Edit Profile',
+                        style: TextStyle(
+                          color: color.AppColor.paleBlue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onTap: () {
+                        Get.to(const EditProfilePage());
+                      }),
+                  ListTile(
+                      leading: Icon(
+                        Icons.logout,
+                        color: color.AppColor.paleBlue,
+                      ),
+                      title: Text(
+                        'Logout',
+                        style: TextStyle(
+                          color: color.AppColor.paleBlue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onTap: () {
+                        Get.to(LoginPage());
+                      }),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  _notification(context) {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        context: context,
+        isScrollControlled: true,
+        builder: (context) {
+          return SafeArea(
+            child: DraggableScrollableSheet(
+              expand: false,
+              builder: (context, scrollController) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(10),
+                  ),
+                  child: Container(
+                    color: Colors.white,
+                    child: ListView.separated(
+                      physics: BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      controller: scrollController,
+                      itemCount: 5,
+                      padding: EdgeInsets.all(16),
+                      separatorBuilder: (context, index) {
+                        return SizedBox(
+                          height: 30,
+                        );
+                      },
+                      itemBuilder: (context, int index) {
+                        return Container(
+                          margin: EdgeInsets.only(
+                            top: 30,
+                          ),
+                          height: 200,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: color.AppColor.blue,
+                            ),
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                height: MediaQuery.of(context).size.height,
+                                width: 10,
+                                color: color.AppColor.blue,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Subcription Updates",
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 12,
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width -
+                                          84,
+                                      child: Text(
+                                        "Your Premium subscription plan will expiry in 5 days to come until 12th June 2022. If you would like to keep enjoying our services please update your plan. \n\n Unlock your plan NOW!",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: color.AppColor.textBlack,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        });
   }
 }
