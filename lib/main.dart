@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Kibasi Owner',
       debugShowCheckedModeBanner: false,
-      home: DashboardPage(),
+      home: LoginPage(),
     );
   }
 }
