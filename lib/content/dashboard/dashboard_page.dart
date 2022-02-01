@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -79,7 +80,9 @@ class _DashboardPageState extends State<DashboardPage> {
               InkWell(
                 splashColor: color.AppColor.paleBlue,
                 onTap: () {
-                  Get.to(ProfilePage());
+                  Get.to(ProfilePage(
+                    user: FirebaseAuth.instance.currentUser!,
+                  ));
                 },
                 child: Hero(
                   tag: "ProfileAvatar",
