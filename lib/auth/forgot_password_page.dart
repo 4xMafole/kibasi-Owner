@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kibasi/auth/login_page.dart';
 import 'package:kibasi/auth/update_password_page.dart';
+import 'package:kibasi/utils/firebase/fire_auth.dart';
+import 'package:kibasi/utils/validator.dart';
 import 'package:kibasi/widget/bezier.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -14,6 +17,12 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPage extends State<ForgotPasswordPage> {
+  final _resetFormKey = GlobalKey<FormState>();
+  final _emailNode = FocusNode();
+  final _emailController = TextEditingController();
+
+  bool _isProcessing = false;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -30,29 +39,34 @@ class _ForgotPasswordPage extends State<ForgotPasswordPage> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: height * .2),
-                    _title(),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    _subtitle(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _normalText(),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    _emailPasswordWidget(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    _submitButton(),
-                  ],
+                child: Form(
+                  key: _resetFormKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: height * .2),
+                      _title(),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      _subtitle(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _normalText(),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      _emailPasswordWidget(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      _submitButton(),
+                      SizedBox(height: height * 0.05),
+                      _loginAccountLabel(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -75,8 +89,11 @@ class _ForgotPasswordPage extends State<ForgotPasswordPage> {
           SizedBox(
             height: 10,
           ),
-          TextField(
+          TextFormField(
+              controller: _emailController,
+              focusNode: _emailNode,
               obscureText: isPassword,
+              validator: (value) => Validator.validateEmail(email: value!),
               decoration: InputDecoration(
                   border: InputBorder.none,
                   fillColor: Color(0xfff3f3f4),
@@ -88,8 +105,37 @@ class _ForgotPasswordPage extends State<ForgotPasswordPage> {
 
   Widget _submitButton() {
     return InkWell(
-      onTap: () {
-        Get.to(UpdatePasswordPage());
+      onTap: () async {
+        _emailNode.unfocus();
+
+        if (_resetFormKey.currentState!.validate()) {
+          setState(() {
+            _isProcessing = true;
+          });
+
+          await FireAuth.resetPassword(
+              context: context, email: _emailController.text);
+
+          setState(() {
+            _isProcessing = false;
+          });
+
+          Alert(
+              context: context,
+              type: AlertType.success,
+              title: "SUCCESS",
+              desc: "Check your email to reset your password",
+              style: AlertStyle(
+                isOverlayTapDismiss: false,
+                isButtonVisible: false,
+                titleStyle: TextStyle(
+                  color: color.AppColor.green,
+                ),
+              ),
+              closeFunction: () {
+                Get.offAll(LoginPage());
+              }).show();
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -107,7 +153,7 @@ class _ForgotPasswordPage extends State<ForgotPasswordPage> {
             ],
             color: color.AppColor.blue),
         child: Text(
-          'Verify Account',
+          'Reset Password',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
@@ -163,6 +209,38 @@ class _ForgotPasswordPage extends State<ForgotPasswordPage> {
       children: <Widget>[
         _entryField("Email"),
       ],
+    );
+  }
+
+  Widget _loginAccountLabel() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.all(15),
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Remember the password ?',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+            onTap: () {
+              Get.offAll(LoginPage());
+            },
+            child: Text(
+              'Login',
+              style: TextStyle(
+                  color: color.AppColor.paleBlue,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
