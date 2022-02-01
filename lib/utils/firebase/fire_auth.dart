@@ -56,8 +56,8 @@ class FireAuth {
     return user;
   }
 
-  static void signOut() {
-    FirebaseAuth.instance.signOut();
+  static void signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   static void emailVerification(User user) {

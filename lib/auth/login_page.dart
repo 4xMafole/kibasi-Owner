@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kibasi/auth/forgot_password_page.dart';
 import 'package:kibasi/auth/register_page.dart';
 import 'package:kibasi/content/dashboard/dashboard_page.dart';
+import 'package:kibasi/content/profile/profile_page.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
+import 'package:kibasi/utils/firebase/fire_auth.dart';
+import 'package:kibasi/utils/validator.dart';
 import 'package:kibasi/widget/bezier.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,7 +21,22 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  Widget _entryField(String title, {bool isPassword = false}) {
+  final _formKey = GlobalKey<FormState>();
+
+  final _emailNode = FocusNode();
+  final _passwordNode = FocusNode();
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  bool _isProcessing = false;
+
+  Widget _entryField(
+    String title,
+    TextEditingController textController,
+    FocusNode focusField, {
+    bool isPassword = false,
+  }) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -30,21 +49,52 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: 10,
           ),
-          TextField(
-              obscureText: isPassword,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: color.AppColor.inputColor,
-                  filled: true))
+          TextFormField(
+            controller: textController,
+            focusNode: focusField,
+            obscureText: isPassword,
+            validator: (value) => isPassword
+                ? Validator.validatePassword(password: value!)
+                : Validator.validateEmail(email: value!),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              fillColor: color.AppColor.inputColor,
+              filled: true,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _submitButton() {
+  Widget _loginButton() {
     return InkWell(
-      onTap: () {
-        Get.to(DashboardPage());
+      onTap: () async {
+        _emailNode.unfocus();
+        _passwordNode.unfocus();
+
+        if (_formKey.currentState!.validate()) {
+          setState(() {
+            _isProcessing = true;
+          });
+
+          User? user = await FireAuth.signInUsingEmailPassword(
+              email: _emailController.text,
+              password: _passwordController.text,
+              context: context);
+
+          setState(() {
+            _isProcessing = false;
+          });
+
+          if (user != null) {
+            Get.offAll(
+              ProfilePage(
+                user: user,
+              ),
+            );
+          }
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -216,10 +266,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           InkWell(
             onTap: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()),
-                  (route) => false);
+              Get.to(RegisterPage());
             },
             child: Text(
               'Register',
@@ -252,8 +299,17 @@ class _LoginPageState extends State<LoginPage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Email"),
-        _entryField("Password", isPassword: true),
+        _entryField(
+          "Email",
+          _emailController,
+          _emailNode,
+        ),
+        _entryField(
+          "Password",
+          _passwordController,
+          _passwordNode,
+          isPassword: true,
+        ),
       ],
     );
   }
@@ -266,52 +322,72 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return GestureDetector(
+      onTap: () {
+        _emailNode.unfocus();
+        _passwordNode.unfocus();
+      },
+      child: Scaffold(
         body: Container(
-      height: height,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-              top: -height * .15,
-              right: -MediaQuery.of(context).size.width * .4,
-              child: CustomBezier()),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: height * .2),
-                  _title(),
-                  SizedBox(height: 50),
-                  _emailPasswordWidget(),
-                  SizedBox(height: 20),
-                  _submitButton(),
-                  SizedBox(height: 10),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.centerRight,
-                    child: InkWell(
-                      onTap: () {
-                        Get.to(ForgotPasswordPage());
-                      },
-                      child: Text('Forgot Password ?',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500)),
+          height: height,
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                  top: -height * .15,
+                  right: -MediaQuery.of(context).size.width * .4,
+                  child: CustomBezier()),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(height: height * .2),
+                        _title(),
+                        SizedBox(height: 50),
+                        _emailPasswordWidget(),
+                        SizedBox(height: 20),
+                        _isProcessing
+                            ? CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  color.AppColor.blue,
+                                ),
+                              )
+                            : _loginButton(),
+                        SizedBox(height: 10),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          alignment: Alignment.centerRight,
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(ForgotPasswordPage());
+                            },
+                            child: Text(
+                              'Forgot Password ?',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        _divider(),
+                        _facebookButton(),
+                        _googleButton(),
+                        SizedBox(height: height * .05),
+                        _createAccountLabel(),
+                      ],
                     ),
                   ),
-                  _divider(),
-                  _facebookButton(),
-                  _googleButton(),
-                  SizedBox(height: height * .05),
-                  _createAccountLabel(),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
-    ));
+    );
   }
 }

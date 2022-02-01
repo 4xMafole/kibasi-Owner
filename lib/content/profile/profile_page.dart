@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kibasi/auth/login_page.dart';
@@ -7,6 +8,7 @@ import 'package:kibasi/content/subscription/components.dart';
 import 'package:kibasi/content/subscription/owner_gate_page.dart';
 import 'package:kibasi/content/subscription/subscription_page.dart';
 import 'package:kibasi/content/subscription/upgrade_page.dart';
+import 'package:kibasi/utils/firebase/fire_auth.dart';
 import 'package:kibasi/widget/asset_card.dart';
 import 'package:kibasi/widget/bordered_avatar.dart';
 import 'package:kibasi/widget/custom_list.dart';
@@ -14,7 +16,11 @@ import 'package:kibasi/widget/subtitle.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  User user;
+  bool _isSendingVerification = false;
+  bool _isSigningOut = false;
+
+  ProfilePage({required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +177,7 @@ class ProfilePage extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Jorge Steward',
+                  '${user.displayName}',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.black38,
@@ -635,7 +641,8 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        Get.to(LoginPage());
+                        FireAuth.signOut();
+                        Get.offAll(LoginPage());
                       }),
                 ],
               ),
