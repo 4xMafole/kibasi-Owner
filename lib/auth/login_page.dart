@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
 
           if (user != null) {
             Get.offAll(
-              ProfilePage(
+              DashboardPage(
                 user: user,
               ),
             );
