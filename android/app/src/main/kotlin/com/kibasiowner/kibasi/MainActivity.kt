@@ -1,4 +1,4 @@
-package com.kibasi_owner.kibasi
+package com.kibasiowner.kibasi
 
 import io.flutter.embedding.android.FlutterActivity
 
