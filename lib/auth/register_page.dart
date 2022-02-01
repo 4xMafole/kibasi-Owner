@@ -145,6 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
           });
 
           User? user = await FireAuth.registerUsingEmailPassword(
+            context: context,
             name: _nameController.text,
             email: _emailController.text,
             password: _passwordController.text,
@@ -201,10 +202,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           InkWell(
             onTap: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                  (route) => false);
+              Get.offAll(LoginPage());
             },
             child: Text(
               'Login',

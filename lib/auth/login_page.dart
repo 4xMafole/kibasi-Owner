@@ -54,7 +54,10 @@ class _LoginPageState extends State<LoginPage> {
             focusNode: focusField,
             obscureText: isPassword,
             validator: (value) => isPassword
-                ? Validator.validatePassword(password: value!)
+                ? Validator.validatePassword(
+                    password: value!,
+                    confirmPassword: value,
+                  )
                 : Validator.validateEmail(email: value!),
             decoration: InputDecoration(
               border: InputBorder.none,

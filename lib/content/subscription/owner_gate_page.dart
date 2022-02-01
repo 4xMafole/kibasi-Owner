@@ -70,7 +70,7 @@ class _OwnerGatePageState extends State<OwnerGatePage> {
     );
   }
 
-  _alert() {
+  alert() {
     Alert(
       context: context,
       image: BorderedAvatar(

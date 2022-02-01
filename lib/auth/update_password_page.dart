@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kibasi/content/dashboard/dashboard_page.dart';
+import 'package:kibasi/utils/firebase/fire_auth.dart';
 import 'package:otp_screen/otp_screen.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
 
@@ -17,7 +18,9 @@ class UpdatePasswordPage extends StatelessWidget {
   }
 
   void moveToNextScreen(context) {
-    Get.to(const DashboardPage());
+    Get.to(DashboardPage(
+      user: FireAuth.currentUser()!,
+    ));
   }
 
   @override

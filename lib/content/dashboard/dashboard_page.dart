@@ -15,7 +15,9 @@ import 'package:kibasi/utils/custom_color.dart' as color;
 import 'package:kibasi/widget/custom_card.dart' as card;
 
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+  User user;
+
+  DashboardPage({required this.user});
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
@@ -62,7 +64,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 children: [
                   //username
                   Text(
-                    "Hi, Mahes",
+                    "Hi, ${widget.user.displayName}",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -73,7 +75,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     height: 5,
                   ),
                   //role
-                  Subtitle(title: "Tagine"),
+                  Subtitle(title: "Owner"),
                 ],
               ),
               Expanded(child: Container()),
