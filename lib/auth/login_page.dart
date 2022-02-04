@@ -7,7 +7,7 @@ import 'package:kibasi/auth/register_page.dart';
 import 'package:kibasi/content/dashboard/dashboard_page.dart';
 import 'package:kibasi/content/profile/profile_page.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
-import 'package:kibasi/utils/firebase/fire_auth.dart';
+import 'package:kibasi/utils/firebase/fire_auth/fire_auth.dart';
 import 'package:kibasi/utils/validator.dart';
 import 'package:kibasi/widget/bezier.dart';
 

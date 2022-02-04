@@ -12,7 +12,7 @@ import 'package:kibasi/content/dashboard/dashboard_page.dart';
 import 'package:kibasi/content/profile/profile_page.dart';
 import 'package:kibasi/firebase_options.dart';
 import 'package:kibasi/onboard/onboard_page.dart';
-import 'package:kibasi/utils/firebase/fire_auth.dart';
+import 'package:kibasi/utils/firebase/fire_auth/fire_auth.dart';
 
 import 'auth/login_page.dart';
 

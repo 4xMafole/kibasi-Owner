@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kibasi/auth/login_page.dart';
 import 'package:kibasi/content/profile/profile_page.dart';
-import 'package:kibasi/utils/firebase/fire_auth.dart';
+import 'package:kibasi/utils/firebase/fire_auth/fire_auth.dart';
 import 'package:kibasi/utils/validator.dart';
 import 'package:kibasi/widget/bezier.dart';
 import 'package:kibasi/utils/custom_color.dart' as color;
