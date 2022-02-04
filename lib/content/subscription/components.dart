@@ -7,6 +7,7 @@ class SubComponent {
 
   bool? isPremium = false;
   bool? isPro = false;
+  bool? isVerified = false;
 
   factory SubComponent() {
     return _subComponent;
