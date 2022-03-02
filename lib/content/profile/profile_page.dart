@@ -2,13 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kibasi/auth/login_page.dart';
-import 'package:kibasi/content/assets/asset_page.dart';
+import 'package:kibasi/content/assets/views/asset_page.dart';
 import 'package:kibasi/content/profile/edit_profile_page.dart';
 import 'package:kibasi/content/subscription/components.dart';
 import 'package:kibasi/content/subscription/owner_gate_page.dart';
-import 'package:kibasi/content/subscription/subscription_page.dart';
-import 'package:kibasi/content/subscription/upgrade_page.dart';
-import 'package:kibasi/utils/firebase/fire_auth.dart';
+import 'package:kibasi/utils/constants.dart';
+import 'package:kibasi/utils/firebase/fire_auth/fire_auth.dart';
 import 'package:kibasi/widget/asset_card.dart';
 import 'package:kibasi/widget/bordered_avatar.dart';
 import 'package:kibasi/widget/custom_list.dart';
@@ -17,8 +16,6 @@ import 'package:kibasi/utils/custom_color.dart' as color;
 
 class ProfilePage extends StatelessWidget {
   User user;
-  bool _isSendingVerification = false;
-  bool _isSigningOut = false;
 
   ProfilePage({required this.user});
 
@@ -135,7 +132,7 @@ class ProfilePage extends StatelessWidget {
             Hero(
               tag: "ProfileAvatar",
               child: _profileImage(
-                url: "assets/images/profile/profile.jpg",
+                url: "assets/images/avatar.png",
                 status: subCommponent.isPro!
                     ? color.AppColor.blue
                     : subCommponent.isPremium!
@@ -185,11 +182,13 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 //Verification
-                Icon(
-                  Icons.verified,
-                  size: 15,
-                  color: color.AppColor.blue,
-                ),
+                subCommponent.isVerified!
+                    ? Icon(
+                        Icons.verified,
+                        size: 15,
+                        color: color.AppColor.blue,
+                      )
+                    : Container(),
               ],
             ),
             SizedBox(height: 5),
@@ -264,7 +263,7 @@ class ProfilePage extends StatelessWidget {
                 ? 'PROFESSIONAL ACCOUNT'
                 : subCommponent.isPremium!
                     ? 'PREMIUM ACCOUNT'
-                    : 'FREE ACCOUNT',
+                    : 'TRIAL ACCOUNT',
             style: TextStyle(
               fontSize: 14,
               color: Colors.black38,
@@ -533,7 +532,7 @@ class ProfilePage extends StatelessWidget {
           radius: 20),
       InkWell(
         onTap: () {
-          Get.to(AssetPage(assetID: 1));
+          Get.to(AssetPage(assetID: Constants.DRIVER_ASSET));
         },
         child: BorderedAvatar(
           url: "7",
@@ -571,7 +570,7 @@ class ProfilePage extends StatelessWidget {
           radius: 20),
       InkWell(
         onTap: () {
-          Get.to(AssetPage(assetID: 0));
+          Get.to(AssetPage(assetID: Constants.BUS_ASSET));
         },
         child: BorderedAvatar(
           url: "10",

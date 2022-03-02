@@ -1,7 +1,7 @@
 class Validator {
-  static String? validateName({required String name}) {
+  static String? validateName({required String title, required String name}) {
     if (name.isEmpty) {
-      return 'Please enter username';
+      return 'Please enter ' + title;
     }
 
     return null;

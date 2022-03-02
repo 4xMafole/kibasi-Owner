@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
-import 'package:kibasi/content/assets/dashbd_asset_page.dart';
+import 'package:kibasi/content/assets/views/dashbd_asset_page.dart';
 import 'package:kibasi/content/dashboard/graph.dart' as graph;
 import 'package:kibasi/content/models/min_card_model.dart';
 import 'package:kibasi/content/profile/profile_page.dart';
