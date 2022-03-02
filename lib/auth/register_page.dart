@@ -119,7 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ) //confirm password should be checked
                 : textController == _emailController
                     ? Validator.validateEmail(email: value!)
-                    : Validator.validateName(name: value!),
+                    : Validator.validateName(title: title, name: value!),
             decoration: InputDecoration(
               border: InputBorder.none,
               fillColor: color.AppColor.inputColor,
